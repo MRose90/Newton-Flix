@@ -1,43 +1,59 @@
 //Set up the requirements
-const express = require('express'),
+const json = require('body-parser/lib/types/json'),
+    express = require('express'),
     app = express(),
     http = require('http'),
     server = http.Server(app),
     path = require('path'),
-    bodyParser = require('body-parser');
- 
-//middleware
+    bodyParser = require('body-parser'),
+    XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+//Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '50mb' }));
- 
-//this stuff deals with serving the front-end
-//public: JS and CSS
-//views: HTML 
+
+//This stuff deals with serving the front-end
+//Public: JS and CSS
+//Views: HTML 
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
- 
-//set up routing
+
+//Set up routing
 const router = express.Router();
- 
-router.get('/newton',function(request,response,next){
+
+//Routing for /newton
+router.get('/newton', function (request, response, next) {
     //Which Newton movie came first?
     const someError = false;
-    if(someError){
+    if (someError) {
         return next(someError);
     }
-    response.send('data goes here');
+    var request = new XMLHttpRequest()
+    request.open('GET', 'https://www.omdbapi.com/?apikey=f81314a9&s=newton', false)
+    request.send();
+    //Converts request to JSON
+    var json = JSON.parse(request.responseText);
+    //Strips any excess JSON or returns and error if an unexpected JSON is returned.
+    if (json.hasOwnProperty("Search")) {
+        response.send(json["Search"]);
+    } else {
+        const err = new Error('OMDb did not return valid data.');
+        response.send('We seem to have encountered some sort of E double R O R. Please be patient while we resolve the problem. ' + err)
+    }
+
 });
- 
+
 //Home. This is where our story begins…
 router.get('/', function (req, res, _next) {
     res.sendFile('index.html', {
         root: './views'
     })
 });
-app.use('/',router);
- 
+app.use('/', router);
+
+//Set the port
 server.listen(process.env.PORT || 9003);
 server.on('error', function (err) {
     console.log('"Err" on the side of caution. Error found:', err)
@@ -46,11 +62,11 @@ server.on('listening', function (lst) {
     console.log('Hello, hello. Is anybody out there? I\'m here waiting!')
 });
 server.on('request', function (req) {
-    //uncomment this if you wanna see EVERY incoming req
-    //but let's be real, this is going to spam the logs on such a simple app
+    //Uncomment this if you want see EVERY incoming request.
+    //But let's be real, this is going to spam the logs on such a simple app.
     // console.log(req.url);
 })
- 
+
 //Error handling. Didn't find what you were looking for huh?
 app.use(function (req, res, next) {
     const err = new Error('Page Not Found');
@@ -59,6 +75,5 @@ app.use(function (req, res, next) {
 });
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-    console.log('Err:', err)
     res.send('We seem to have encountered some sort of E double R O R. Please be patient while we resolve the problem. ' + err)
 });
