@@ -1,8 +1,64 @@
-const http = require("http");
-http.createServer(function (request, response) {
-    response.writeHead(200, {'Content-Type': 'application/json'});
-    var json = JSON.stringify({"demo":"demo"})
-    response.end(json);
- }).listen(9003);
+//Set up the requirements
+const express = require('express'),
+    app = express(),
+    http = require('http'),
+    server = http.Server(app),
+    path = require('path'),
+    bodyParser = require('body-parser');
  
- console.log('Server running at http://127.0.0.1:9003/');
+//middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: '50mb' }));
+ 
+//this stuff deals with serving the front-end
+//public: JS and CSS
+//views: HTML 
+app.set('view engine', 'html');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
+ 
+//set up routing
+const router = express.Router();
+ 
+router.get('/newton',function(request,response,next){
+    //Which Newton movie came first?
+    const someError = false;
+    if(someError){
+        return next(someError);
+    }
+    response.send('data goes here');
+});
+ 
+//Home. This is where our story begins…
+router.get('*', function (req, res, _next) {
+    res.sendFile('index.html', {
+        root: './views'
+    })
+});
+app.use('/',router);
+ 
+server.listen(process.env.PORT || 9003);
+server.on('error', function (err) {
+    console.log('"Err" on the side of caution. Error found:', err)
+});
+server.on('listening', function (lst) {
+    console.log('Hello, hello. Is anybody out there? I\'m here waiting!')
+});
+server.on('request', function (req) {
+    //uncomment this if you wanna see EVERY incoming req
+    //but let's be real, this is going to spam the logs on such a simple app
+    // console.log(req.url);
+})
+ 
+//Error handling. Didn't find what you were looking for huh?
+app.use(function (req, res, next) {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    console.log('Err:', err)
+    res.send('We seem to have encountered some sort of E double R O R. Please be patient while we resolve the problem.' + err)
+});
