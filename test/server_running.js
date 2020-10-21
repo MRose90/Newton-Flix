@@ -2,10 +2,10 @@
 //Simply tests if the response code is 200.
 const assert = require('assert'),
     XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-describe('Server', function () {
-    describe('200 from node server', function () {
-        it('Server should return a 200 response', function () {
-            var request = new XMLHttpRequest()
+describe('Server', function() {
+    describe('200 from node server', function() {
+        it('Server should return a 200 response', function() {
+            const request = new XMLHttpRequest()
             request.open('GET', 'http://127.0.0.1:9003', false)
             request.send();
             //Asserts a 200 status.
