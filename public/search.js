@@ -17,14 +17,17 @@ class MyComponent extends React.Component {
     methodOne() {
         //doSomethingToGetApiData.then(data=>blah blah)
         //for now, I'm simulating this with a setInterval
+        const request = new XMLHttpRequest()
         request.open('GET', 'http://127.0.0.1:9003/newton', false)
         request.send();
         //Converts the returned list to a json and iterates through the entries
         const json = JSON.parse(request.responseText);
-        newtonData = []
+        let newtonData = []
         for (let i = 0; i < json.length; i++) {
-            const entry = [json["Title"], json[year], json[imdb]]
-            newtonData.append(entry)
+            const innerJson = json[i];
+            const entry = [innerJson["Title"], innerJson["Year"], "http://www.imdb.com/title/"+innerJson["imdbID"]]
+            console.log(entry);
+            newtonData.push(entry)
         }
         setTimeout(() => {
             console.log(this.setState)
@@ -34,25 +37,34 @@ class MyComponent extends React.Component {
     }
 
     render() {
-        return ( < div >
-            <button onClick = { this.methodOne } > <img src="nf_search.png" height="30" /> </button>  <
-            table className = "table" >
-            <thead>
-            <tr>
-            <th> Title </th>  
-            <th> Year </th>  
-            <th> IMDb URL </th> 
-            </tr> 
-            </thead> 
-            <tbody> {
-                this.state.newtonData.map(data => {
-                    return ( <tr> <td> {data[0]} </td><td>{data[1]}</td> <td> { data[2] } </td></tr> );
-                })
+        if(this.state.newtonData.length == 0){
+            return ( <div>
+                <button onClick = {this.methodOne } > <img src="nf_search.png" height="30" /> </button> 
+                </div>
+            )
+        }
+        else {
+            return ( <div>
+                <button onClick = { this.methodOne } > <img src="nf_search.png" height="30" /> </button> 
+                <table className = "table" >
+                <thead>
+                <tr>
+                <th> Title </th>  
+                <th> Year </th>  
+                <th> IMDb URL </th> 
+                </tr> 
+                </thead> 
+                <tbody> {
+                    this.state.newtonData.map(data => {
+                        return ( <tr> <td> {data[0]} </td><td>{data[1]}</td> <td> <a href ={data[2]}>{ data[2] } </a> </td></tr> );
+                }
+            )
             } 
             </tbody> 
             </table> 
             </div>
         )
+        }
     }
 }
 
