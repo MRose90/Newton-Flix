@@ -2,7 +2,7 @@
 //Simply tests a non-existant URL
 const assert = require('assert'),
     XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-describe('Array', function() {
+describe('Server', function() {
   describe('404 from node server', function() {
     it('Server should return a 404 response', function() {
         var request = new XMLHttpRequest()

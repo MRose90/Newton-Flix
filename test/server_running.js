@@ -2,7 +2,7 @@
 //Simply tests if the response code is 200
 const assert = require('assert'),
     XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-describe('Array', function() {
+describe('Server', function() {
   describe('200 from node server', function() {
     it('Server should return a 200 response', function() {
         var request = new XMLHttpRequest()
