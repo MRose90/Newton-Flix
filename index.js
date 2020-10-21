@@ -6,6 +6,7 @@ const json = require('body-parser/lib/types/json'),
     server = http.Server(app),
     path = require('path'),
     bodyParser = require('body-parser'),
+    CONFIG = require('config'),
     XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 //Middleware
@@ -25,15 +26,16 @@ const router = express.Router();
 
 //Routing for /newton
 router.get('/newton', function (request, response, next) {
-    //Which Newton movie came first?
     const someError = false;
     if (someError) {
         return next(someError);
     }
+    //Requests data from omdb
     var request = new XMLHttpRequest()
-    request.open('GET', 'https://www.omdbapi.com/?apikey=f81314a9&s=newton', false)
+    request.open('GET', 'https://www.omdbapi.com/?apikey='+CONFIG.api_key+'&s=newton', false)
     request.send();
     //Converts request to JSON
+    console.log(request.responseText);
     var json = JSON.parse(request.responseText);
     //Strips any excess JSON or returns and error if an unexpected JSON is returned.
     if (json.hasOwnProperty("Search")) {

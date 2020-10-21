@@ -4,6 +4,7 @@
   "description": "ombd api calls",
   "main": "index.js",
   "dependencies": {
+    "config": "^3.3.2",
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "json": "^10.0.0",
