@@ -31,7 +31,7 @@ router.get('/newton',function(request,response,next){
 });
  
 //Home. This is where our story begins…
-router.get('*', function (req, res, _next) {
+router.get('/', function (req, res, _next) {
     res.sendFile('index.html', {
         root: './views'
     })
@@ -53,12 +53,12 @@ server.on('request', function (req) {
  
 //Error handling. Didn't find what you were looking for huh?
 app.use(function (req, res, next) {
-    const err = new Error('Not Found');
+    const err = new Error('Page Not Found');
     err.status = 404;
     next(err);
 });
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     console.log('Err:', err)
-    res.send('We seem to have encountered some sort of E double R O R. Please be patient while we resolve the problem.' + err)
+    res.send('We seem to have encountered some sort of E double R O R. Please be patient while we resolve the problem. ' + err)
 });

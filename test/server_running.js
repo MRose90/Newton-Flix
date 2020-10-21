@@ -7,8 +7,7 @@ describe('Array', function() {
     it('Server should return a 200 response', function() {
         var request = new XMLHttpRequest()
         request.open('GET', 'http://127.0.0.1:9003', false) 
-        request.send();  
-        console.log(request.status);
+        request.send();
       assert.equal(request.status,200);
     });
   });
