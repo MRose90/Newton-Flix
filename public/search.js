@@ -33,13 +33,13 @@ class MyComponent extends React.Component {
     render() {
         if(this.state.movieData.length == 0){
             return ( <div>
-                <button onClick = {this.queryBackend } > <img src="nf_search.png" height="30" /> </button> 
+                <button onClick = {this.queryBackend } > <img src="ask_isaac.png" height="80" /> </button> 
                 </div>
             )
         }
         else {
             return ( <div>
-                <button onClick = { this.queryBackend } > <img src="nf_search.png" height="30" /> </button> 
+                <button onClick = { this.queryBackend } > <img src="ask_isaac.png" height="80" /> </button> 
                 <table className = "table" >
                 <thead>
                 <tr>
