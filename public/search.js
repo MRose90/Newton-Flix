@@ -1,20 +1,14 @@
-/*NOTE!:
-You will need to include (i.e., script tag)
-https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js
-AND
-https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js
-*/
 class MyComponent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-                newtonData: []
+                movieData: []
             }
             //this is NOT automatically lexically bound, so we gotta do it manually here
-        this.methodOne = this.methodOne.bind(this);
+        this.queryBackend = this.queryBackend.bind(this);
     }
 
-    methodOne() {
+    queryBackend() {
         //doSomethingToGetApiData.then(data=>blah blah)
         //for now, I'm simulating this with a setInterval
         const request = new XMLHttpRequest()
@@ -22,30 +16,30 @@ class MyComponent extends React.Component {
         request.send();
         //Converts the returned list to a json and iterates through the entries
         const json = JSON.parse(request.responseText);
-        let newtonData = []
+        let movieData = []
         for (let i = 0; i < json.length; i++) {
             const innerJson = json[i];
             const entry = [innerJson["Title"], innerJson["Year"], "http://www.imdb.com/title/"+innerJson["imdbID"]]
             console.log(entry);
-            newtonData.push(entry)
+            movieData.push(entry)
         }
         setTimeout(() => {
             console.log(this.setState)
-            this.setState({ newtonData })
-        }, 1000)
+            this.setState({ movieData })
+        }, 100)
 
     }
 
     render() {
-        if(this.state.newtonData.length == 0){
+        if(this.state.movieData.length == 0){
             return ( <div>
-                <button onClick = {this.methodOne } > <img src="nf_search.png" height="30" /> </button> 
+                <button onClick = {this.queryBackend } > <img src="nf_search.png" height="30" /> </button> 
                 </div>
             )
         }
         else {
             return ( <div>
-                <button onClick = { this.methodOne } > <img src="nf_search.png" height="30" /> </button> 
+                <button onClick = { this.queryBackend } > <img src="nf_search.png" height="30" /> </button> 
                 <table className = "table" >
                 <thead>
                 <tr>
@@ -55,7 +49,7 @@ class MyComponent extends React.Component {
                 </tr> 
                 </thead> 
                 <tbody> {
-                    this.state.newtonData.map(data => {
+                    this.state.movieData.map(data => {
                         return ( <tr> <td> {data[0]} </td><td>{data[1]}</td> <td> <a href ={data[2]}>{ data[2] } </a> </td></tr> );
                 }
             )
