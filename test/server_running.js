@@ -1,3 +1,5 @@
+//Test to see if the server is running on the local machine on port 9003
+//Simply tests if the response code is 200
 const assert = require('assert');
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 describe('Array', function() {
