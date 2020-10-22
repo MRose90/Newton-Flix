@@ -14,8 +14,15 @@ class MyComponent extends React.Component {
         request.open('GET', 'http://127.0.0.1:9003/newton', false)
         request.send();
         //Checks to see if newton got valid data before trying to parse it
-        if (request.status == 500){
-            const movieData = [500];
+        if (request.status == 503){
+            const movieData = [503];
+            setTimeout(() => {
+                console.log(this.setState)
+                this.setState({ movieData })
+            }, 100)
+        //Handle OMDb errors
+        } else if (request.status == 500){
+            let movieData = [500, request.responseText];
             setTimeout(() => {
                 console.log(this.setState)
                 this.setState({ movieData })
@@ -50,6 +57,16 @@ class MyComponent extends React.Component {
         }
         //Used of a 500 was returned from the backend. Backend did not know how to handle the data.
         else if (this.state.movieData[0] == 500){
+            console.log(this.state.movieData[0])
+            console.log(this.state.movieData[1])
+            return ( <div>
+                <button onClick = {this.queryBackend } > <img src="ask_isaac.png" height="100" /> </button> 
+                <p>{this.state.movieData[1]}</p>
+                </div>
+            )
+        //Used if data was successfully recieved from the backend.
+        //Parses the movieData into entries for the table
+        } else if (this.state.movieData[0] == 503){
             console.log(this.state.movieData)
             return ( <div>
                 <button onClick = {this.queryBackend } > <img src="ask_isaac.png" height="100" /> </button> 

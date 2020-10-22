@@ -39,9 +39,14 @@ router.get('/newton', function(request, response, next) {
     //Strips any excess JSON or returns and error if an unexpected JSON is returned.
     if (json.hasOwnProperty("Search")) {
         response.send(json["Search"]);
+        //Passes along OMDb errors
+    } else if (json.hasOwnProperty("Error")) {
+        console.log(json["Error"]);
+        response.status(500).send(json["Error"]);
+        //Handles any parsing problems
     } else {
-        const err = new Error('OMDb did not return valid data.');
-        response.status(500).send('We seem to have encountered some sort of E double R O R. Please be patient while we resolve the problem. ' + err)
+        const err = new Error('OMDb did not return parseable data.');
+        response.status(503).send('We seem to have encountered some sort of E double R O R. Please be patient while we resolve the problem. ' + err)
     }
 });
 
