@@ -12,6 +12,8 @@ Replace `myKey` with the key provided by OMDb.
 
 To run this application, if nodeJS is installed, simply navigate via command line to the directory where the files are located, run `npm install` and `npm start`.
 
+Now that the application is running, navigate to http://localhost:9003. If your computer has no internet connection, the search button will not appear due to the inability to load some javascript files from the internet.
+
 ## Running The Tests
 Navigate via command line to the root folder. Run `npm test`. If the server is not running, the tests will fail, but they will still execute.
 
