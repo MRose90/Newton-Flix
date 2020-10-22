@@ -14,19 +14,9 @@ body {
     height: 100%;
     margin: 0;
     background-color: var(--main-bg-color);
-}
-
-input {
-    height: 100%;
-    background-color: var(--main-bg-color);
-    color: var(--main-font-color);
-    ;
-}
-
-header {
-    margin: 0 auto;
     font-family: Book Antiqua, Palatino Linotype, Palatino, Bookman, Arial;
-    font-size: 12;
+    font-size: 18;
+    background-attachment: fixed;
     color: var(--main-font-color);
 }
 
@@ -34,26 +24,13 @@ a {
     color: var(--link-color);
 }
 
-footer {
-    padding-top: 15px;
-    font-family: Book Antiqua, Palatino Linotype, Palatino, Bookman, Arial;
-    font-size: 14;
-    color: var(--main-font-color);
+div {
+    width: 100%;
 }
 
-body {
-    font-family: Book Antiqua, Palatino Linotype, Palatino, Bookman, Arial;
-    font-size: 18;
-    background-attachment: fixed;
-    color: var(--main-font-color);
-}
-
-h2 {
-    font-size: 30;
-}
-
-h3 {
-    font-size: 25;
+button {
+    margin-left: 20px;
+    margin-bottom: 10px;
 }
 
 .headerdiv {
@@ -61,54 +38,8 @@ h3 {
     padding-bottom: 10px;
 }
 
-.title {
-    padding-left: 10px;
-    padding-right: 10px;
-    margin: 0 auto;
-    color: var(--main-font-color);
-    text-align: center;
-    width: var(--main-width);
-    background-color: var(--main-bg-color);
-}
-
-span {
-    color: var(--link-color);
-    font-size: 14;
-}
-
 table {
+    padding-left: 10px;
     table-layout: fixed;
-}
-
-pre {
-    white-space: pre-wrap;
-    /* Since CSS 2.1 */
-    white-space: -moz-pre-wrap;
-    /* Mozilla, since 1999 */
-    white-space: -pre-wrap;
-    /* Opera 4-6 */
-    white-space: -o-pre-wrap;
-    /* Opera 7 */
-    word-wrap: break-word;
-    /* Internet Explorer 5.5+ */
-}
-
-.description {
-    padding-left: 10px;
-    padding-right: 10px;
-    margin: 0 auto;
-    color: var(--main-font-color);
-    width: var(--main-width);
-    padding-top: 15px;
-    padding-bottom: 15px;
-    background-color: var(--main-bg-color);
-}
-
-.footerspan {
-    position: absolute;
-    right: var(--footer-width);
-}
-
-table {
     color: var(--main-font-color);
 }
