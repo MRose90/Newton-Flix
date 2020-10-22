@@ -1,7 +1,7 @@
 # Newton Flix
 This project was designed to search through OMDb and find all movies that included Newton in the name. It was developed with a nodeJS backend and a React frontend. 
 ## Running The Application
-Before running the application, make sure to get OMDb credentials from [https://www.omdbapi.com/]. These credentials need to be activated by clicking the link in the email that the service will send to you. 
+Before running the application, make sure to get OMDb credentials from https://www.omdbapi.com/. These credentials need to be activated by clicking the link in the email that the service will send to you. 
 Once you have acquired your credentials, create a folder in the root directory named `config`. Within the directory, create a file named `default.json`. Within the file write the following lines:
 ```json
 {
