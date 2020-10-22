@@ -39,7 +39,13 @@ button {
 }
 
 table {
-    padding-left: 10px;
+    padding-left: 20px;
+    border-spacing: 5px;
     table-layout: fixed;
     color: var(--main-font-color);
+}
+
+td {
+    padding-left: 5px;
+    padding-right: 5px;
 }
