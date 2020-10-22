@@ -55,7 +55,7 @@ class MyComponent extends React.Component {
                 </div>
             )
         }
-        //Used of a 500 was returned from the backend. Backend did not know how to handle the data.
+        //Used of a 500 was returned from the backend. Passes on the OMDb error to the user.
         else if (this.state.movieData[0] == 500){
             console.log(this.state.movieData[0])
             console.log(this.state.movieData[1])
@@ -64,8 +64,7 @@ class MyComponent extends React.Component {
                 <p>{this.state.movieData[1]}</p>
                 </div>
             )
-        //Used if data was successfully recieved from the backend.
-        //Parses the movieData into entries for the table
+        //Used of a 503 was returned from the backend. Backend did not know how to handle the data.
         } else if (this.state.movieData[0] == 503){
             console.log(this.state.movieData)
             return ( <div>
