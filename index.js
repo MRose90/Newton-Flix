@@ -41,7 +41,7 @@ router.get('/newton', function(request, response, next) {
         response.send(json["Search"]);
     } else {
         const err = new Error('OMDb did not return valid data.');
-        response.status(418).send('We seem to have encountered some sort of E double R O R. Please be patient while we resolve the problem. ' + err)
+        response.status(424).send('We seem to have encountered some sort of E double R O R. Please be patient while we resolve the problem. ' + err)
     }
 });
 
