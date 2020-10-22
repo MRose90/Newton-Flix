@@ -15,7 +15,7 @@ This project was designed to search through OMDb and find all movies that includ
 5. Now that the application is running, navigate to http://localhost:9003. If your computer has no internet connection, the search button will not appear due to the inability to load some javascript files from the internet.
 
 ## Running The Tests
-Navigate via command line to the root folder. Run `npm test`. If the server is not running, manye tests will fail, but they will still execute.
+Navigate via command line to the root folder. Run `npm test`. If the server is not running, many tests will fail, but they will still execute.
 
 Note: If the tests fail to run due to mocha not being installed, run `npm install` or `npm install mocha`.
 ## Future Development
