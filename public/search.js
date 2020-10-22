@@ -4,17 +4,26 @@ class MyComponent extends React.Component {
         this.state = {
                 movieData: []
             }
-            //this is NOT automatically lexically bound, so we gotta do it manually here
+            //this is not automatically lexically bound, so we gotta do it manually here
         this.queryBackend = this.queryBackend.bind(this);
     }
 
     queryBackend() {
-        //doSomethingToGetApiData.then(data=>blah blah)
-        //for now, I'm simulating this with a setInterval
+        //Request the newton data from the backend
         const request = new XMLHttpRequest()
         request.open('GET', 'http://127.0.0.1:9003/newton', false)
         request.send();
-        //Converts the returned list to a json and iterates through the entries
+        //Checks to see if newton got valid data before trying to parse it
+        if (request.status == 500){
+            const movieData = [500];
+            setTimeout(() => {
+                console.log(this.setState)
+                this.setState({ movieData })
+            }, 100)
+        }
+        //Converts the returned raw data to a json and iterates through the entries
+        //As it iterates through, it creates an array of entries to be used in the table
+        else{
         const json = JSON.parse(request.responseText);
         let movieData = []
         for (let i = 0; i < json.length; i++) {
@@ -27,17 +36,30 @@ class MyComponent extends React.Component {
             console.log(this.setState)
             this.setState({ movieData })
         }, 100)
+        }
 
     }
-
+    //Renders any required data into HTML format
     render() {
+        //Used of no data has been recieved from the backend
         if(this.state.movieData.length == 0){
             return ( <div>
                 <button onClick = {this.queryBackend } > <img src="ask_isaac.png" height="100" /> </button> 
                 </div>
             )
         }
-        else {
+        //Used of a 500 was returned from the backend. Backend did not know how to handle the data.
+        else if (this.state.movieData[0] == 500){
+            console.log(this.state.movieData)
+            return ( <div>
+                <button onClick = {this.queryBackend } > <img src="ask_isaac.png" height="100" /> </button> 
+                <p>There was an error parsing the data from the OMDb server.</p>
+                </div>
+            )
+        //Used if data was successfully recieved from the backend.
+        //Parses the movieData into entries for the table
+        } else {
+            console.log(this.state.movieData)
             return ( <div>
                 <button onClick = { this.queryBackend } > <img src="ask_isaac.png" height="100" /> </button> 
                 <table className = "table" >
