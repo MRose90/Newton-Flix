@@ -15,7 +15,7 @@ body {
     margin: 0;
     background-color: var(--main-bg-color);
     font-family: Book Antiqua, Palatino Linotype, Palatino, Bookman, Arial;
-    font-size: 18;
+    font-size: 18px;
     background-attachment: fixed;
     color: var(--main-font-color);
 }
@@ -25,12 +25,13 @@ a {
 }
 
 div {
+    text-align: center;
     width: 100%;
 }
 
 button {
     margin-left: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .headerdiv {
@@ -39,13 +40,23 @@ button {
 }
 
 table {
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 20px;
     border-spacing: 5px;
-    table-layout: fixed;
     color: var(--main-font-color);
 }
 
 td {
+    text-align: left;
+    font-size: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+th {
+    text-align: center;
+    font-size: 20px;
     padding-left: 5px;
     padding-right: 5px;
 }
